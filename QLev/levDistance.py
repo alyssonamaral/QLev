@@ -1,6 +1,6 @@
 import numpy as np
 
-def levenshteinDistanceDP(token1, token2):
+def levenshteinDistance(token1, token2):
     distances = np.zeros((len(token1) + 1, len(token2) + 1))
 
     for t1 in range(len(token1) + 1):
@@ -30,3 +30,7 @@ def levenshteinDistanceDP(token1, token2):
                     distances[t1][t2] = c + 1
 
     return distances[len(token1)][len(token2)]
+
+def levN (token1, token2):
+    distances = levenshteinDistanceDP(token1, token2)
+
