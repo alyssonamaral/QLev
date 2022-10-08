@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def levenshteinDistance(token1, token2):
     distances = np.zeros((len(token1) + 1, len(token2) + 1))
@@ -32,5 +33,9 @@ def levenshteinDistance(token1, token2):
     return distances[len(token1)][len(token2)]
 
 def levN (token1, token2):
-    distances = levenshteinDistanceDP(token1, token2)
-
+    distance = levenshteinDistance(token1, token2)
+    if len(token1) >= len(token2):
+        shorter = len(token2)
+    else:
+        shorter = len(token1)
+    return ( 1.0 / math.exp( distance / (shorter - distance) ) )
