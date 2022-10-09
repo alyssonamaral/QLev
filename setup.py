@@ -17,9 +17,10 @@ setup(
         keywords=['python', 'levenshtein', 'qwerty'],
         classifiers= [
             "Development Status :: 3 - Alpha",
-            "Intended Audience :: String Classifier",
+            "Intended Audience :: Science/Research",
             "Programming Language :: Python :: 3",
             "Operating System :: MacOS :: MacOS X",
             "Operating System :: Microsoft :: Windows",
+            "Operating System :: Unix",
         ]
 )
