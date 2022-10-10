@@ -10,7 +10,7 @@ setup(
         version=VERSION,
         author="Alysson Amaral",
         author_email="alysson.amaral@outlook.com",
-        url="https://github.com/alyssonamaral/QLev"
+        url="https://github.com/alyssonamaral/QLev",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
