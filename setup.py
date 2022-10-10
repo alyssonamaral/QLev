@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.1' 
+VERSION = '0.0.2' 
 DESCRIPTION = 'String distance metrics'
 LONG_DESCRIPTION = 'String distance metrics based on Levenshtein and Qwerty Matrix Distance'
 
@@ -10,6 +10,7 @@ setup(
         version=VERSION,
         author="Alysson Amaral",
         author_email="alysson.amaral@outlook.com",
+        url="https://github.com/alyssonamaral/QLev"
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
