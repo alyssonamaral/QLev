@@ -1,16 +1,13 @@
 # QLev
 
 <p>
-  <a href="https://github.com/alyssonamaral/QLev/actions">
-    <img src="https://github.com/alyssonamaral/QLev/workflows/Build/badge.svg"
-         alt="Continous Integration">
-  </a>
+
   <a href="https://pypi.org/project/QLev/">
     <img src="https://img.shields.io/pypi/v/QLev"
          alt="PyPI package version">
   </a>
   <a href="https://www.python.org">
-    <img src="https://img.shields.io/pypi/pyversions/levenshtein"
+    <img src="https://img.shields.io/pypi/pyversions/QLev"
          alt="Python versions">
   </a>
   <a href="https://pypi.org/project/QLev/">
