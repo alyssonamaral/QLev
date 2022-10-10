@@ -25,7 +25,6 @@ The QLev package is mainly used for:
 
 ## Requirements
 * Python 3 or later
-* Numpy package installed
 
 ## Installation
 ```bash
@@ -34,7 +33,24 @@ pip install QLev
 
 ## Guide
 
-In progress...
+To use simple the levenshtein distance you can:
+
+```python
+from QLev import levenshteinDistance
+
+diff = levenshteinDistance('Guacamole','Guecamole')
+
+print(diff)
+```
+If you want to use the normalized metric, you can:
+
+```python
+from QLev import levN
+
+diff = levN('Guacamole','Guecamole')
+
+print(diff)
+```
 
 ## License
 
