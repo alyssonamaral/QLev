@@ -38,4 +38,9 @@ def levN (token1, token2):
         shorter = len(token2)
     else:
         shorter = len(token1)
-    return ( 1.0 / math.exp( distance / (shorter - distance) ) )
+
+    normLev = ( 1.0 / math.exp( distance / (shorter - distance) ) )
+    if normLev > 1:
+        normLev = 0
+        
+    return normLev
