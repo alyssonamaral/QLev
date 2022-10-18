@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 with open('README.md', 'rt', encoding="utf8") as f:
     readme = f.read()
 
-VERSION = '0.0.45' 
+VERSION = '0.0.5' 
 DESCRIPTION = 'String distance metrics based on Levenshtein and Qwerty Matrix Distance'
 
 # Setting up
@@ -13,7 +13,7 @@ setup(
         author_email="alysson.amaral@outlook.com",
         url="https://github.com/alyssonamaral/QLev",
         description=DESCRIPTION,
-         long_description=readme,
+        long_description=readme,
         long_description_content_type="text/markdown",
         packages=find_packages(),
         install_requires=['numpy'],
