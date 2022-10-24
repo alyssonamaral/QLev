@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 with open('README.md', 'rt', encoding="utf8") as f:
     readme = f.read()
 
-VERSION = '0.0.55' 
+VERSION = '0.0.65' 
 DESCRIPTION = 'String distance metrics based on Levenshtein and Qwerty Matrix Distance'
 
 # Setting up
