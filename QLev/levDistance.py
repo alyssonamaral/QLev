@@ -58,7 +58,38 @@ def levN (token1, token2):
     return normLev
 
 def qwertyDistance (token1, token2):
-    X = (qwerty_dict[token1]['x'] - qwerty_dict[token2]['x']) ** 2
-    Y = (qwerty_dict[token1]['y'] - qwerty_dict[token2]['y']) ** 2
+    token1 = token1.lower()
+    token2 = token2.lower()
+    try:
+        X = (qwerty_dict[token1]['x'] - qwerty_dict[token2]['x']) ** 2
+        Y = (qwerty_dict[token1]['y'] - qwerty_dict[token2]['y']) ** 2
+        return math.sqrt(X+Y)
 
-    return math.sqrt(X+Y)
+    except Exception as e:
+        if (len(token1) != 1 or len(token2) != 1):
+            print('quertyDistance accepts only the distance between chars')
+        else:
+            if hasattr(e, 'message'):
+                print(e.message)
+            else:
+                print(e)
+
+def QLev (token1, token2):
+    token1 = [*token1]
+    token2 = [*token2]
+    values = []
+
+    i = 0
+    while i < len(token1):
+        x = 0
+        charX = []
+        while x < len(token2):
+            dist = qwertyDistance(token1[i], token2[x])
+            charX.append(dist)
+            x += 1
+        values.append(charX)
+        i += 1
+
+    return(print(values))
+    
+QLev('Oda','Oda')
