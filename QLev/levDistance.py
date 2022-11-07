@@ -90,6 +90,14 @@ def QLev (token1, token2):
         values.append(charX)
         i += 1
 
-    return(print(values))
+    totalSum = []
+    for n in range(len(values)):
+        totalSum.append(min(values[n]))       
     
-QLev('Oda','Oda')
+    sumMin = sum(totalSum)
+
+    return(print(sumMin))
+
+    #I need to put the bigger string first. Also I need to apply the qwertyDistance to the closest char of the same position.
+    
+QLev('Ofddfgs','ofa')
