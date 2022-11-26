@@ -78,26 +78,34 @@ def QLev (token1, token2):
     token1 = [*token1]
     token2 = [*token2]
     values = []
-
     i = 0
-    while i < len(token1):
-        x = 0
-        charX = []
-        while x < len(token2):
-            dist = qwertyDistance(token1[i], token2[x])
-            charX.append(dist)
-            x += 1
-        values.append(charX)
-        i += 1
-
     totalSum = []
-    for n in range(len(values)):
-        totalSum.append(min(values[n]))       
     
-    sumMin = sum(totalSum)
+    if len(token1) == len(token2):
+        charX = []
+        while i < len(token1):
+            dist = qwertyDistance(token1[i], token2[i])
+            charX.append(dist)
+            i += 1
+        sumMin = sum(charX)
+    
+    else:           
+        while i < len(token1):
+            x = 0
+            charX = []
+            while x < len(token2):
+                dist = qwertyDistance(token1[i], token2[x])
+                charX.append(dist)
+                x += 1
+            values.append(charX)
+            i += 1
+        for n in range(len(values)):
+            totalSum.append(min(values[n]))       
+
+        sumMin = sum(totalSum)
 
     return(print(sumMin))
 
     #I need to put the bigger string first. Also I need to apply the qwertyDistance to the closest char of the same position.
     
-QLev('Ofddfgs','ofa')
+QLev('Ofo','ofa')
