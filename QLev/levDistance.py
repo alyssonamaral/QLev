@@ -59,7 +59,7 @@ def levN (token1, token2):
             else:
                 print(e)
 
-    return result
+    return result 
 
 def qwertyDistance (token1, token2):
     token1 = token1.lower()
@@ -81,9 +81,7 @@ def qwertyDistance (token1, token2):
 def QLev (token1, token2):
     token1List = [*token1]
     token2List = [*token2]
-    values = []
     i = 0
-    totalSum = []
     
     if len(token1List) == len(token2List):
         charX = []
@@ -92,35 +90,15 @@ def QLev (token1, token2):
             charX.append(dist)
             i += 1
         sumMin = sum(charX)
+    else:
+        return 'The string should have the same lengh'
     
-    else:           
-        while i < len(token1List):
-            x = 0
-            charX = []
-            while x < len(token2List):
-                dist = qwertyDistance(token1List[i], token2List[x])
-                charX.append(dist)
-                x += 1
-            values.append(charX)
-            i += 1
-        for n in range(len(values)):
-            totalSum.append(min(values[n]))
-
-        sumMin = sum(totalSum)
-
     lev = levN(token1, token2)     
-
     mean = (sumMin + lev) / 2
     sumLen = len(token1) + len(token2)   
     result = mean / sumLen
+
     if result > 1:
         result = 1
-    
-    result = 1 - result 
 
-    print('QLev:', result)
-
-char1 = 'Hojr'
-char2 = 'Hojr' 
-
-QLev(char1, char2)
+    return result
