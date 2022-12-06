@@ -42,23 +42,63 @@ def levenshteinDistance(token1, token2):
                 else:
                     distances[t1][t2] = c + 1
 
-    return distances[len(token1)][len(token2)]
+    return distances[len(token1)][len(token2)] 
 
 def levN (token1, token2):
-    distance = levenshteinDistance(token1, token2)
-    if len(token1) >= len(token2):
-        shorter = len(token2)
-    else:
-        shorter = len(token1)
-
-    normLev = ( 1.0 / math.exp( distance / (shorter - distance) ) )
-    if normLev > 1:
-        normLev = 0
+    try:
+        distance = levenshteinDistance(token1, token2)
+        sumLen = len(token1) + len(token2)   
+        result = distance / sumLen
         
-    return normLev
+    except Exception as e:
+        if (token1 == '' or token2 == ''):
+            print('One of the string should not be empty')
+        else:
+            if hasattr(e, 'message'):
+                print(e.message)
+            else:
+                print(e)
+
+    return result 
 
 def qwertyDistance (token1, token2):
-    X = (qwerty_dict[token1]['x'] - qwerty_dict[token2]['x']) ** 2
-    Y = (qwerty_dict[token1]['y'] - qwerty_dict[token2]['y']) ** 2
+    token1 = token1.lower()
+    token2 = token2.lower()
+    try:
+        X = (qwerty_dict[token1]['x'] - qwerty_dict[token2]['x']) ** 2
+        Y = (qwerty_dict[token1]['y'] - qwerty_dict[token2]['y']) ** 2
+        return math.sqrt(X+Y)
 
-    return math.sqrt(X+Y)
+    except Exception as e:
+        if (len(token1) != 1 or len(token2) != 1):
+            print('quertyDistance accepts only the distance between chars')
+        else:
+            if hasattr(e, 'message'):
+                print(e.message)
+            else:
+                print(e)
+
+def QLev (token1, token2):
+    token1List = [*token1]
+    token2List = [*token2]
+    i = 0
+    
+    if len(token1List) == len(token2List):
+        charX = []
+        while i < len(token1List):
+            dist = qwertyDistance(token1List[i], token2List[i])
+            charX.append(dist)
+            i += 1
+        sumMin = sum(charX)
+    else:
+        return 'The string should have the same lengh'
+    
+    lev = levN(token1, token2)     
+    mean = (sumMin + lev) / 2
+    sumLen = len(token1) + len(token2)   
+    result = mean / sumLen
+
+    if result > 1:
+        result = 1
+
+    return result

@@ -20,8 +20,8 @@
 The QLev package is mainly used for:
 
 * Levenshtein distance
-* levenshtein distance using normalization with Euler's number
-* levenshtein distance considering the keyboard keys range (working in progress)
+* levenshtein distance normalized
+* levenshtein distance considering the keyboard keys range 
 
 ## Requirements
 * Python 3 or later
@@ -51,6 +51,26 @@ diff = levN('Guacamole','Guecamole')
 
 print(diff)
 ```
+If you want to know the euclidian distance between two chars, you can:
+
+```python
+from QLev import qwertyDistance
+
+diff = qwertyDistance('g','a')
+
+print(diff)
+```
+
+To have a metric that uses levenshtein distance and the qwerty matrix, you can:
+
+```python
+from QLev import QLev
+
+diff = QLev('Guacamole','Guecamole')
+
+print(diff)
+```
+
 
 ## License
 

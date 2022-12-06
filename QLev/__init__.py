@@ -1,1 +1,1 @@
-from .levDistance import levenshteinDistance, levN, qwertyDistance
+from .levDistance import levenshteinDistance, levN, qwertyDistance, QLev
