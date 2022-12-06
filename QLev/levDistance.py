@@ -42,20 +42,24 @@ def levenshteinDistance(token1, token2):
                 else:
                     distances[t1][t2] = c + 1
 
-    return distances[len(token1)][len(token2)]
+    return distances[len(token1)][len(token2)] 
 
 def levN (token1, token2):
-    distance = levenshteinDistance(token1, token2)
-    if len(token1) >= len(token2):
-        shorter = len(token2)
-    else:
-        shorter = len(token1)
-
-    normLev = ( 1.0 / math.exp( distance / (shorter - distance) ) )
-    if normLev > 1:
-        normLev = 0
+    try:
+        distance = levenshteinDistance(token1, token2)
+        sumLen = len(token1) + len(token2)   
+        result = distance / sumLen
         
-    return normLev
+    except Exception as e:
+        if (token1 == '' or token2 == ''):
+            print('One of the string should not be empty')
+        else:
+            if hasattr(e, 'message'):
+                print(e.message)
+            else:
+                print(e)
+
+    return result
 
 def qwertyDistance (token1, token2):
     token1 = token1.lower()
@@ -75,37 +79,42 @@ def qwertyDistance (token1, token2):
                 print(e)
 
 def QLev (token1, token2):
-    token1 = [*token1]
-    token2 = [*token2]
+    token1List = [*token1]
+    token2List = [*token2]
     values = []
     i = 0
     totalSum = []
     
-    if len(token1) == len(token2):
+    if len(token1List) == len(token2List):
         charX = []
-        while i < len(token1):
-            dist = qwertyDistance(token1[i], token2[i])
+        while i < len(token1List):
+            dist = qwertyDistance(token1List[i], token2List[i])
             charX.append(dist)
             i += 1
         sumMin = sum(charX)
     
     else:           
-        while i < len(token1):
+        while i < len(token1List):
             x = 0
             charX = []
-            while x < len(token2):
-                dist = qwertyDistance(token1[i], token2[x])
+            while x < len(token2List):
+                dist = qwertyDistance(token1List[i], token2List[x])
                 charX.append(dist)
                 x += 1
             values.append(charX)
             i += 1
         for n in range(len(values)):
-            totalSum.append(min(values[n]))       
+            totalSum.append(min(values[n]))
 
         sumMin = sum(totalSum)
 
-    return(print(sumMin))
+    lev = levN(token1, token2)     
 
-    #I need to put the bigger string first. Also I need to apply the qwertyDistance to the closest char of the same position.
-    
-QLev('Ofo','ofa')
+    result = (sumMin + lev) / 2
+
+    return(lev)
+
+char1 = 'Hoj'
+char2 = 'Hoji' 
+
+levN(char1, char2)
