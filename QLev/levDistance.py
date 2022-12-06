@@ -110,11 +110,17 @@ def QLev (token1, token2):
 
     lev = levN(token1, token2)     
 
-    result = (sumMin + lev) / 2
+    mean = (sumMin + lev) / 2
+    sumLen = len(token1) + len(token2)   
+    result = mean / sumLen
+    if result > 1:
+        result = 1
+    
+    result = 1 - result 
 
-    return(lev)
+    print('QLev:', result)
 
-char1 = 'Hoj'
-char2 = 'Hoji' 
+char1 = 'Hojr'
+char2 = 'Hojr' 
 
-levN(char1, char2)
+QLev(char1, char2)
