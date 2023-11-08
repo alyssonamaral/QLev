@@ -44,11 +44,33 @@ def levenshteinDistance(token1, token2):
 
     return distances[len(token1)][len(token2)] 
 
-def levN (token1, token2):
+def levN (token1, token2, insertion_weight=2, deletion_weight=3, substitution_weight=1):
     try:
-        distance = levenshteinDistance(token1, token2)
-        sumLen = len(token1) + len(token2)   
-        result = distance / sumLen
+        distances = np.zeros((len(token1) + 1, len(token2) + 1))
+
+        for t1 in range(len(token1) + 1):
+            distances[t1][0] = t1 * deletion_weight
+
+        for t2 in range(len(token2) + 1):
+            distances[0][t2] = t2 * insertion_weight
+
+        a = 0
+        b = 0
+        c = 0
+
+        for t1 in range(1, len(token1) + 1):
+            for t2 in range(1, len(token2) + 1):
+                if (token1[t1 - 1] == token2[t2 - 1]):
+                    distances[t1][t2] = distances[t1 - 1][t2 - 1]
+                else:
+                    a = distances[t1][t2 - 1] + insertion_weight
+                    b = distances[t1 - 1][t2] + deletion_weight
+                    c = distances[t1 - 1][t2 - 1] + substitution_weight
+
+                    distances[t1][t2] = min(a, b, c)
+
+        levenshtein_distance = distances[len(token1)][len(token2)]
+        result = levenshtein_distance / (max(len(token1), len(token2)) * max(insertion_weight, deletion_weight, substitution_weight))
         
     except Exception as e:
         if (token1 == '' or token2 == ''):
@@ -102,3 +124,5 @@ def QLev (token1, token2):
         result = 1
 
     return result
+
+print(levN('kitten', 'sitting'))
