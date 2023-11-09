@@ -61,7 +61,7 @@ diff = qwertyDistance('g','a')
 print(diff)
 ```
 
-To have a metric that uses levenshtein distance and the qwerty matrix, you can:
+To have a metric that uses levenshtein distance and the qwerty matrix between strings, you can:
 
 ```python
 from QLev import QLev

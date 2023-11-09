@@ -97,26 +97,30 @@ def qwertyDistance (token1, token2):
                 print(e)
 
 def QLev (token1, token2):
-    token1List = [*token1]
-    token2List = [*token2]
-    i = 0
-    
-    if len(token1List) == len(token2List):
-        charX = []
-        while i < len(token1List):
-            dist = qwertyDistance(token1List[i], token2List[i])
-            charX.append(dist)
-            i += 1
-        sumMin = sum(charX)
-    else:
-        return 'The string should have the same lengh'
-    
-    lev = levN(token1, token2)     
-    mean = (sumMin + lev) / 2
-    sumLen = len(token1) + len(token2)   
-    result = mean / sumLen
+    if token1 is None or token2 is None:
+        return 0
+    token1 = token1.lower()
+    token2 = token2.lower()
 
-    if result > 1:
-        result = 1
+    for token in [token1, token2]:
+        for char in token:
+            if char not in qwerty_dict:
+                raise ValueError(f"Character '{char}' not in qwerty_dict")
+
+    total_distance = 0
+    for char1, char2 in zip(token1, token2):
+        total_distance += qwertyDistance(char1, char2)
+
+    if len(token1) > len(token2):
+        for char in token1[len(token2):]:
+            total_distance += qwertyDistance(char, 'q') 
+    elif len(token2) > len(token1):
+        for char in token2[len(token1):]:
+            total_distance += qwertyDistance(char, 'q')  
+    
+    max_distance = max(len(token1), len(token2)) * 6
+    normalized_distance = 1 - (total_distance / max_distance)
+    lev = levN(token1, token2) 
+    result = (normalized_distance + lev) / 2
 
     return result
