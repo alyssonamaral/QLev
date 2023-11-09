@@ -44,36 +44,32 @@ def levenshteinDistance(token1, token2):
 
     return distances[len(token1)][len(token2)] 
 
-def levN (token1, token2, insertion_weight=2, deletion_weight=3, substitution_weight=1):
+def levN (s, t, insertion_weight=1, deletion_weight=1, substitution_weight=2):
     try:
-        distances = np.zeros((len(token1) + 1, len(token2) + 1))
+        distances = np.zeros((len(s) + 1, len(t) + 1))
 
-        for t1 in range(len(token1) + 1):
-            distances[t1][0] = t1 * deletion_weight
+        for i in range(len(s) + 1):
+            distances[i][0] = i * deletion_weight
 
-        for t2 in range(len(token2) + 1):
-            distances[0][t2] = t2 * insertion_weight
+        for i in range(len(t) + 1):
+            distances[0][i] = i * insertion_weight
 
-        a = 0
-        b = 0
-        c = 0
-
-        for t1 in range(1, len(token1) + 1):
-            for t2 in range(1, len(token2) + 1):
-                if (token1[t1 - 1] == token2[t2 - 1]):
-                    distances[t1][t2] = distances[t1 - 1][t2 - 1]
+        for i in range(1, len(s) + 1):
+            for j in range(1, len(t) + 1):
+                if s[i - 1] == t[j - 1]:
+                    distances[i][j] = distances[i - 1][j - 1]
                 else:
-                    a = distances[t1][t2 - 1] + insertion_weight
-                    b = distances[t1 - 1][t2] + deletion_weight
-                    c = distances[t1 - 1][t2 - 1] + substitution_weight
+                    distances[i][j] = min(
+                        distances[i - 1][j] + deletion_weight,
+                        distances[i][j - 1] + insertion_weight,
+                        distances[i - 1][j - 1] + substitution_weight
+                    )
 
-                    distances[t1][t2] = min(a, b, c)
-
-        levenshtein_distance = distances[len(token1)][len(token2)]
-        result = levenshtein_distance / (max(len(token1), len(token2)) * max(insertion_weight, deletion_weight, substitution_weight))
+        lev_distance = distances[len(s)][len(t)]
+        result = (len(s) + len(t) - lev_distance) / (len(s) + len(t))   
         
     except Exception as e:
-        if (token1 == '' or token2 == ''):
+        if (s == '' or t == ''):
             print('One of the string should not be empty')
         else:
             if hasattr(e, 'message'):
@@ -124,5 +120,3 @@ def QLev (token1, token2):
         result = 1
 
     return result
-
-print(levN('kitten', 'sitting'))
