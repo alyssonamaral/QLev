@@ -2,16 +2,19 @@ import numpy as np
 import math
 
 qwerty_dict = {
-    'q': {'x': 0, 'y': 0}, 'w': {'x': 1, 'y': 0}, 'e': {'x': 2, 'y': 0},
-    'r': {'x': 3, 'y': 0}, 't': {'x': 4, 'y': 0}, 'y': {'x': 5, 'y': 0},
-    'u': {'x': 6, 'y': 0}, 'i': {'x': 7, 'y': 0}, 'o': {'x': 8, 'y': 0},
-    'p': {'x': 9, 'y': 0}, 'a': {'x': 0, 'y': 1}, 's': {'x': 1, 'y': 1},
-    'd': {'x': 2, 'y': 1}, 'f': {'x': 3, 'y': 1}, 'g': {'x': 4, 'y': 1},
-    'h': {'x': 5, 'y': 1}, 'j': {'x': 6, 'y': 1}, 'k': {'x': 7, 'y': 1},
-    'l': {'x': 8, 'y': 1}, 'z': {'x': 0, 'y': 2}, 'x': {'x': 1, 'y': 2},
-    'c': {'x': 2, 'y': 2}, 'v': {'x': 3, 'y': 2}, 'b': {'x': 4, 'y': 2},
-    'n': {'x': 5, 'y': 2}, 'm': {'x': 6, 'y': 2}
-    }
+    '1': {'x': 0, 'y': -1}, '2': {'x': 1, 'y': -1}, '3': {'x': 2, 'y': -1},
+    '4': {'x': 3, 'y': -1}, '5': {'x': 4, 'y': -1}, '6': {'x': 5, 'y': -1},
+    '7': {'x': 6, 'y': -1}, '8': {'x': 7, 'y': -1}, '9': {'x': 8, 'y': -1},
+    '0': {'x': 9, 'y': -1}, 'q': {'x': 0, 'y': 0}, 'w': {'x': 1, 'y': 0},
+    'e': {'x': 2, 'y': 0}, 'r': {'x': 3, 'y': 0}, 't': {'x': 4, 'y': 0},
+    'y': {'x': 5, 'y': 0}, 'u': {'x': 6, 'y': 0}, 'i': {'x': 7, 'y': 0},
+    'o': {'x': 8, 'y': 0}, 'p': {'x': 9, 'y': 0}, 'a': {'x': 0, 'y': 1},
+    's': {'x': 1, 'y': 1}, 'd': {'x': 2, 'y': 1}, 'f': {'x': 3, 'y': 1},
+    'g': {'x': 4, 'y': 1}, 'h': {'x': 5, 'y': 1}, 'j': {'x': 6, 'y': 1},
+    'k': {'x': 7, 'y': 1}, 'l': {'x': 8, 'y': 1}, 'z': {'x': 0, 'y': 2},
+    'x': {'x': 1, 'y': 2}, 'c': {'x': 2, 'y': 2}, 'v': {'x': 3, 'y': 2},
+    'b': {'x': 4, 'y': 2}, 'n': {'x': 5, 'y': 2}, 'm': {'x': 6, 'y': 2}
+}
 
 def levenshteinDistance(token1, token2):
     distances = np.zeros((len(token1) + 1, len(token2) + 1))
@@ -96,9 +99,19 @@ def qwertyDistance (token1, token2):
             else:
                 print(e)
 
-def QLev (token1, token2):
+
+def nearest_key_distance(char):
+    min_distance = float('inf')
+    for key in qwerty_dict:
+        distance = qwertyDistance(char, key)
+        if distance < min_distance:
+            min_distance = distance
+    return min_distance
+
+def qwertyN(token1, token2):
     if token1 is None or token2 is None:
         return 0
+    
     token1 = token1.lower()
     token2 = token2.lower()
 
@@ -106,21 +119,29 @@ def QLev (token1, token2):
         for char in token:
             if char not in qwerty_dict:
                 raise ValueError(f"Character '{char}' not in qwerty_dict")
-
+            
     total_distance = 0
     for char1, char2 in zip(token1, token2):
         total_distance += qwertyDistance(char1, char2)
 
     if len(token1) > len(token2):
         for char in token1[len(token2):]:
-            total_distance += qwertyDistance(char, 'q') 
+            total_distance += nearest_key_distance(char)
     elif len(token2) > len(token1):
         for char in token2[len(token1):]:
-            total_distance += qwertyDistance(char, 'q')  
+            total_distance += nearest_key_distance(char)
     
     max_distance = max(len(token1), len(token2)) * 6
     normalized_distance = 1 - (total_distance / max_distance)
-    lev = levN(token1, token2) 
+
+    return normalized_distance
+
+def QLev(token1, token2):
+    token1 = token1.lower()
+    token2 = token2.lower()
+    normalized_distance = qwertyN(token1, token2)
+    lev = levN(token1, token2)
+
     result = (normalized_distance + lev) / 2
 
     return result
