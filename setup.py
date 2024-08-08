@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 with open('README.md', 'rt', encoding="utf8") as f:
     readme = f.read()
 
-VERSION = '1.0.0' 
+VERSION = '1.5.0' 
 DESCRIPTION = 'String distance metrics based on Levenshtein and Qwerty Matrix Distance'
 
 # Setting up
@@ -21,10 +21,6 @@ setup(
         classifiers= [
             "Development Status :: 3 - Alpha",
             "Intended Audience :: Science/Research",
-            "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3.6",
-            "Programming Language :: Python :: 3.7",
-            "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: 3.9",
             "Programming Language :: Python :: 3.10",
             "Programming Language :: Python :: 3.11",
