@@ -145,3 +145,47 @@ def QLev(token1, token2):
     result = (normalized_distance + lev) / 2
 
     return result
+
+def to_vector(word):
+    word = word.lower()
+    vector = np.zeros((len(word), 2))  
+    for i, char in enumerate(word):
+        if char in qwerty_dict:
+            vector[i] = [qwerty_dict[char]['x'], qwerty_dict[char]['y']]
+        else:
+            raise ValueError(f"Character '{char}' not in qwerty_dict")
+    return vector
+
+def to_vector_flatten(word):
+    word = word.lower()
+    vector = np.zeros((len(word), 2))  
+    for i, char in enumerate(word):
+        if char in qwerty_dict:
+            vector[i] = [qwerty_dict[char]['x'], qwerty_dict[char]['y']]
+        else:
+            raise ValueError(f"Character '{char}' not in qwerty_dict")
+    return vector.flatten()
+
+def pad_vectors(vector1, vector2):
+    max_len = max(len(vector1), len(vector2))
+    padded_vector1 = np.pad(vector1, (0, max_len - len(vector1)), 'constant')
+    padded_vector2 = np.pad(vector2, (0, max_len - len(vector2)), 'constant')
+    return padded_vector1, padded_vector2
+
+def vectors_penalty(vector1, vector2):
+    vector1, vector2 = pad_vectors(vector1, vector2)
+    min_len = min(len(vector1), len(vector2))
+    total_distance = np.linalg.norm(vector1[:min_len] - vector2[:min_len])
+
+    size_difference = abs(len(vector1) - len(vector2))
+    total_distance += size_difference
+
+    return total_distance
+
+def aggregate_vector(vector):
+    return np.mean(vector.reshape(-1, 2), axis=0)  
+
+def aggr_vectors(vector1, vector2):
+    aggregated_vector1 = aggregate_vector(vector1)
+    aggregated_vector2 = aggregate_vector(vector2)
+    return np.linalg.norm(aggregated_vector1 - aggregated_vector2)

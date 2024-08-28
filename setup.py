@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 with open('README.md', 'rt', encoding="utf8") as f:
     readme = f.read()
 
-VERSION = '1.5.0' 
+VERSION = '1.9.0' 
 DESCRIPTION = 'String distance metrics based on Levenshtein and Qwerty Matrix Distance'
 
 # Setting up
@@ -17,7 +17,7 @@ setup(
         long_description_content_type="text/markdown",
         packages=find_packages(),
         install_requires=['numpy'],
-        keywords=['python', 'levenshtein', 'qwerty'],
+        keywords=['python', 'levenshtein', 'qwerty', 'vector'],
         classifiers= [
             "Development Status :: 3 - Alpha",
             "Intended Audience :: Science/Research",

@@ -1,1 +1,1 @@
-from .levDistance import levenshteinDistance, levN, qwertyDistance, QLev, qwertyN
+from .levDistance import levenshteinDistance, levN, qwertyDistance, QLev, qwertyN, to_vector, to_vector_flatten, aggr_vectors, vectors_penalty
