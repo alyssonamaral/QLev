@@ -168,11 +168,18 @@ def to_vector_flatten(word):
 
 def pad_vectors(vector1, vector2):
     max_len = max(len(vector1), len(vector2))
-    padded_vector1 = np.pad(vector1, (0, max_len - len(vector1)), 'constant')
-    padded_vector2 = np.pad(vector2, (0, max_len - len(vector2)), 'constant')
-    return padded_vector1, padded_vector2
+    if vector1.shape[0] < max_len:
+        padding = np.zeros((max_len - vector1.shape[0], 2))
+        vector1 = np.vstack((vector1, padding))
+    if vector2.shape[0] < max_len:
+        padding = np.zeros((max_len - vector2.shape[0], 2))
+        vector2 = np.vstack((vector2, padding))
+    return vector1, vector2
+
 
 def vectors_penalty(vector1, vector2):
+    vector1 = to_vector(vector1)
+    vector2 = to_vector(vector2)
     vector1, vector2 = pad_vectors(vector1, vector2)
     min_len = min(len(vector1), len(vector2))
     total_distance = np.linalg.norm(vector1[:min_len] - vector2[:min_len])
@@ -186,6 +193,8 @@ def aggregate_vector(vector):
     return np.mean(vector.reshape(-1, 2), axis=0)  
 
 def aggr_vectors(vector1, vector2):
+    vector1 = to_vector(vector1)
+    vector2 = to_vector(vector2)
     aggregated_vector1 = aggregate_vector(vector1)
     aggregated_vector2 = aggregate_vector(vector2)
     return np.linalg.norm(aggregated_vector1 - aggregated_vector2)
